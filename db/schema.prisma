@@ -23,6 +23,8 @@ model User {
 
   tokens   Token[]
   sessions Session[]
+  reviews  Review[]
+  courses  Course[]
 }
 
 model Session {
@@ -55,6 +57,57 @@ model Token {
   userId Int
 
   @@unique([hashedToken, type])
+}
+
+model Course {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  title     String
+  slug      String    @unique
+  summary   String
+  image     String
+  price     Int
+  duration  Int
+  chapters  Chapter[]
+  reviews   Review[]
+  author    User?     @relation(fields: [authorId], references: [id])
+  authorId  Int?
+}
+
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  summary   String
+  duration  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  lessons   Lesson[]
+}
+
+model Lesson {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  summary   String
+  duration  Int
+  chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  chapterId Int
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  rating    Int
+  comment   String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }
 
 // NOTE: It's highly recommended to use an enum for the token type
