@@ -22,7 +22,10 @@ const ListOfCourses = () => {
 		},
 	})
 	return (
-		<CardList>
+		<CardList
+			title={'Courses'}
+			description={'Here are some courses'}
+		>
 			{courses.map((course) => (
 				<CourseCard
 					key={course.id}

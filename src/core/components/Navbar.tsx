@@ -43,7 +43,6 @@ function useWindowSize() {
 
 const Navbar = () => {
 	const size = useWindowSize()
-	console.log(size)
 	const [open, setOpen] = React.useState(true)
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -68,7 +67,7 @@ const Navbar = () => {
 							alt="Flowbite Logo"
 						/>
 						<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-							Flowbite
+							Modulo
 						</span>
 					</a>
 					<div className="flex items-center lg:order-2">
